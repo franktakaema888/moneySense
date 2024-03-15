@@ -1,6 +1,6 @@
+/** Setting up schema required for MongoDB storage */
 const mongoose = require('mongoose');
 
-// setting up the data storing in income models
 const IncomeSchema = new mongoose.Schema({
     title: {
         type: String,

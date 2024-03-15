@@ -1,5 +1,4 @@
-//where to call the main page before login 
-
+// Calls the main page before login
 const router = require('express').Router();
 const { register, login } = require('../Function/login');
 

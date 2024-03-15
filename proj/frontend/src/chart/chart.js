@@ -27,36 +27,49 @@ ChartJS.register(
 );
 
 const Chart = () => {
-    //allows "income" and "expenses" variable from useGlobalContext to be used
     const { incomes, expenses } = useGlobalContext();
 
-    //iterate through and create new array of income from current user
-    const incomeData = incomes.map(inc => inc.amount); 
-    //iterate through and create new array of expenses from current user
-    const expenseData = expenses.map(exp => exp.amount); 
+    // Create a combined list of all transactions, sorted by date
+    const combinedTransactions = [...incomes, ...expenses].sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    // Create an object to hold summed amounts for each date, for incomes and expenses separately
+    const amountsByDate = combinedTransactions.reduce((acc, transaction) => {
+        const dateString = new Date(transaction.date).toLocaleDateString();
+        if (!acc[dateString]) {
+            acc[dateString] = { income: 0, expense: 0 };
+        }
+        acc[dateString][transaction.type] += transaction.amount;
+        return acc;
+    }, {});
 
-    //create arrays of income and expense dates
-    const incomeDates = incomes.map(inc => new Date(inc.date).toLocaleDateString());
-    const expenseDates = expenses.map(exp => new Date(exp.date).toLocaleDateString());
-    //combine income and expense dates
-    const allDates = [...incomeDates, ...expenseDates];
-    //remove duplicate dates by converting the array to a Set and back to an array
-    const uniqueDates = Array.from(new Set(allDates));
+    // Now create arrays for the chart data using the accumulated amounts
+    const chartData = Object.entries(amountsByDate).reduce(
+        (acc, [date, amounts]) => {
+            acc.labels.push(date);
+            acc.incomeData.push(amounts.income);
+            acc.expenseData.push(amounts.expense);
+            return acc;
+        },
+        { labels: [], incomeData: [], expenseData: [] }
+    );
 
-    //Initialises data to be used in Line graph
     const data = {
-        labels: uniqueDates,
+        labels: chartData.labels,
         datasets: [
             {
                 label: 'Income',
-                data: incomeData,
-                backgroundColor: 'green',
+                data: chartData.incomeData,
+                backgroundColor: 'rgba(0, 255, 0, 0.5)',
+                borderColor: 'green',
+                borderWidth: 1,
                 tension: 0.2,
             },
             {
                 label: 'Expenses',
-                data: expenseData,
-                backgroundColor: 'red',
+                data: chartData.expenseData,
+                backgroundColor: 'rgba(255, 0, 0, 0.5)',
+                borderColor: 'red',
+                borderWidth: 1,
                 tension: 0.2,
             },
         ],

@@ -1,15 +1,15 @@
-//expense funcrions
+// User Expense Page
 
 const ExpenseSchema = require("../models/expenseModels");
 
-//add expense
+// Add Expense
 exports.addExpense = async (req, res) => {
   const { title, amount, category, date, userOwner } = req.body;
 
   const expense = ExpenseSchema({ title, amount, category, date, userOwner });
 
   try {
-    //validations
+    // Validations
     if (!title || !category || !date) {
       return res.status(400).json({ message: "All fields are required!" });
     }
@@ -29,9 +29,7 @@ exports.addExpense = async (req, res) => {
   console.log(expense);
 };
 
-
-
-//get the expense
+// Get the expense
 exports.getExpense = async (req, res) => {
   try {
     const expenses = await ExpenseSchema.find().sort({ createdAt: -1 });
@@ -41,9 +39,7 @@ exports.getExpense = async (req, res) => {
   }
 };
 
-
-
-//delete the expense
+// Delete the expense
 exports.deleteExpense = async (req, res) => {
   const { id } = req.params;
   ExpenseSchema.findByIdAndDelete(id)

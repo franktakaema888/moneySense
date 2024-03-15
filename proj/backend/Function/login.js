@@ -1,4 +1,4 @@
-//login and signup functions
+/** User registration and login functions */
 
 const UsersModels = require("../models/UsersModels");
 const bcrypt = require("bcrypt");
@@ -15,7 +15,7 @@ exports.register = async (req, res) => {
   if (user) {
     return res.status(500).json({ message: "User already exsist!" });
   }
-
+  console.log("password: ", password)
   //using bcrypt to hash the user passwords
   const hashedpassword = await bcrypt.hash(password, 10);
 

@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useGlobalContext } from "../context/globalContext";
-import Comparison from "../Homepage_components/comparison";
+// import Comparison from "../Homepage_components/comparison";
 import Chart from "../chart/chart";
-import BarChart from "../chart/barChart";
+// import BarChart from "../chart/barChart";
 
 /** Display Total Funds
  * - Shows Balance, Income and Expense of the user
@@ -41,8 +41,8 @@ const Dashboard = () => {
                 <div className=" md:col-span-2 bg-white rounded-lg shadow-md p-6 ">
 					<h1>How do you fair in Singapore?</h1>
                     <div className="">
-						<BarChart/>
-                        <Comparison/>
+						{/* <BarChart/> */}
+                        {/* <Comparison/> */}
                     </div>
 				</div>	
 			</div>

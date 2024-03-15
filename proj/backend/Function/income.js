@@ -1,16 +1,14 @@
-//income funcions
-
+// User Income page 
 const IncomeSchema = require("../models/incomeModels");
 
-
-//add the income
+// Add income
 exports.addIncome = async (req, res) => {
   const { title, amount, category, date, userOwner } = req.body;
 
   const income = IncomeSchema({ title, amount, category, date, userOwner });
 
   try {
-    //validations
+    // Validations
     if (!title || !category || !date) {
       return res.status(400).json({ message: "All fields are required!" });
     }
@@ -19,10 +17,10 @@ exports.addIncome = async (req, res) => {
         .status(400)
         .json({ message: "Amount must be a positive number!" });
     }
-
     //save after the validation
     await income.save();
     res.status(200).json({ message: "Income Added" });
+
   } catch (error) {
     res.status(500).json({ message: "Server Error" });
   }
@@ -30,7 +28,7 @@ exports.addIncome = async (req, res) => {
 };
 
 
-//get the income
+// Get the income
 exports.getIncomes = async (req, res) => {
 
   try {
@@ -42,7 +40,7 @@ exports.getIncomes = async (req, res) => {
 };
 
 
-//delete income
+// Delete income
 exports.deleteIncome = async (req, res) => {
 
   const { id } = req.params;

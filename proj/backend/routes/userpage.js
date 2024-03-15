@@ -6,25 +6,24 @@ const { addIncome, getIncomes, deleteIncome} = require('../Function/income');
 const { addExpense, getExpense, deleteExpense} = require('../Function/expense');
 const {updateBudget, getBudget} = require('../Function/budget');
 
-//defalt
+// Default
 router.get('/',(req, res)=>{
     res.send("hello world")
 })
 
 
 router
-
     // Income
       .post('/add-income', addIncome)
       .get('/get-incomes', getIncomes)
       .delete('/delete-income/:id', deleteIncome)
-
-      //Expense 
+      
+    // Expense 
       .post('/add-expense', addExpense)
       .get('/get-expenses', getExpense)
       .delete('/delete-expense/:id', deleteExpense)
 
-      //Budget
+    // Budget
       .get('/get-budget/:id', getBudget)
       .post('/budget', updateBudget)
 
