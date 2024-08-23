@@ -11,8 +11,7 @@ The goal of this project is not to build the perfect website. But, to focus on e
 ## Getting Started
 Get the project up and running by following the steps below
 
-1. Create a personal Fork of this repository
-2. 
+1. Create a personal Fork of this repository 
 2. Open two terminals (backend and frontend)
 3. Change the directory for each terminal to the backend and frontend respectively
 backend:
